@@ -61,19 +61,21 @@
         }
         img { pointer-events: none; }
 
-        /* --- Custom Scrollbar --- */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease-in-out; }
+        #preloader i { font-size: 3rem; color: var(--accent-red); animation: spin 1.5s linear infinite; }
+        body.loaded #preloader { opacity: 0; pointer-events: none; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background-color: rgba(255, 255, 255, 0.05); }
         ::-webkit-scrollbar-thumb { background-color: #555; border-radius: 10px; border: 2px solid transparent; background-clip: content-box; }
         ::-webkit-scrollbar-thumb:hover { background-color: #777; }
 
-        /* --- Background Glows Effect --- */
         .glow { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; will-change: transform; }
         .glow-purple { width: 400px; height: 400px; background: var(--glow-purple); top: 5%; left: 10%; }
         .glow-blue { width: 350px; height: 350px; background: var(--glow-blue); top: 15%; right: 15%; }
         .glow-red { width: 300px; height: 300px; background: var(--glow-red); bottom: 30%; left: 50%; transform: translateX(-50%); }
 
-        /* --- Navbar Styles --- */
         .site-header { position: fixed; top: 2rem; left: 50%; transform: translateX(-50%); width: calc(100% - 4rem); max-width: 900px; z-index: 1000; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; background-color: rgba(26, 26, 26, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 50px; padding: 0.5rem; border: 1px solid var(--card-border); }
         .logo { font-size: 1.25rem; font-weight: 800; color: var(--text-color); text-decoration: none; cursor: pointer; padding: 0.5rem 1.5rem; }
@@ -85,14 +87,12 @@
         .nav-indicator { position: absolute; z-index: 1; top: 0; left: 0; height: 100%; background-color: var(--text-color); border-radius: 50px; transition: transform 0.4s cubic-bezier(0.2, 0.5, 0, 1), width 0.4s cubic-bezier(0.2, 0.5, 0, 1); }
         .mobile-nav-toggle { display: none; }
 
-        /* --- Main Content & Page System --- */
         main { width: 100%; max-width: 900px; padding: 8rem 0 4rem 0; flex-grow: 1; }
         .page { display: none; width: 100%; animation: fadeIn 0.6s ease-out; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .page-content { text-align: center; }
         
-        /* --- Universal Components --- */
         .section-title { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 800; line-height: 1.3; max-width: 20ch; margin: 0 auto 2.5rem auto; }
         .section-subtitle { font-size: 1.1rem; max-width: 60ch; margin: -1.5rem auto 2.5rem auto; color: var(--text-muted); }
         .btn { position: relative; overflow: hidden; display: inline-block; padding: 0.9rem 2.2rem; border-radius: 50px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.3s ease; }
@@ -105,7 +105,6 @@
         .btn.disabled { background: #555; cursor: not-allowed; opacity: 0.7; transform: none; }
         .btn.disabled:hover .btn-glow { opacity: 0; }
         
-        /* --- Section Styling --- */
         .section { padding: 4rem 0; }
         .hero-section { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
         .section-text { max-width: 65ch; margin: 0 auto; text-align: left; line-height: 1.7; }
@@ -115,7 +114,6 @@
         .social-proof-container i { color: var(--accent-blue); font-size: 1.2rem; }
         .social-proof-container strong { color: var(--text-color); font-weight: 700; }
 
-        /* --- Card Styles --- */
         .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
         .dev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
         .content-card { background-color: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--card-border); border-radius: 20px; padding: 2rem; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; }
@@ -125,23 +123,18 @@
         .feature-icon { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--accent-red); }
         .version-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 50px; background-color: rgba(255, 255, 255, 0.1); font-size: 0.8rem; font-weight: 700; vertical-align: middle; }
 
-        /* --- Discord Page --- */
         .discord-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; text-align: left; }
         .discord-features { list-style: none; margin: 1.5rem 0; }
         .discord-features li { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
         .discord-features .fa-check { color: var(--accent-blue); }
-        .discord-widget { width: 100%; height: 500px; border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .discord-preview img { border-radius: 16px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
-        /* --- Footer Styles --- */
         .site-footer { width: 100%; max-width: 900px; padding: 2rem 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--card-border); margin-top: auto; }
         .site-footer p { margin: 0.25rem 0; }
 
-        /* --- Scroll Animations --- */
         .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
 
-        /* --- MOBILE OPTIMIZATION --- */
         .mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1001; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .mobile-nav-overlay.is-active { opacity: 1; pointer-events: auto; }
         .mobile-nav-drawer { display: none; }
@@ -158,10 +151,8 @@
             .mobile-nav-drawer .nav-link { color: var(--text-muted); font-size: 1.2rem; font-weight: 700; }
             .mobile-nav-drawer .nav-link:hover { color: var(--text-color); }
             .mobile-nav-drawer .nav-link.active { color: var(--accent-red); }
-
             .mobile-nav-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; color: var(--text-muted); background: none; border: none; cursor: pointer; transition: color 0.3s ease; }
             .mobile-nav-close-btn:hover { color: var(--text-color); }
-            
             .mobile-nav-toggle { display: block; width: 24px; height: 20px; position: relative; cursor: pointer; z-index: 1001; border: none; background: transparent; margin-right: 0.5rem; }
             .hamburger-icon, .hamburger-icon::before, .hamburger-icon::after { content: ''; position: absolute; left: 0; width: 100%; height: 2px; background-color: var(--text-color); border-radius: 2px; transition: transform 0.3s, top 0.3s, opacity 0.3s; }
             .hamburger-icon { top: 50%; transform: translateY(-50%); }
@@ -170,7 +161,6 @@
             .mobile-nav-toggle.is-active .hamburger-icon { background: transparent; }
             .mobile-nav-toggle.is-active .hamburger-icon::before { transform: rotate(45deg); top: 0; }
             .mobile-nav-toggle.is-active .hamburger-icon::after { transform: rotate(-45deg); top: 0; }
-
             .section, .social-proof-section { padding: 2.5rem 0; }
             .section-title { max-width: 100%; }
             .discord-grid { grid-template-columns: 1fr; text-align: center; }
@@ -180,6 +170,8 @@
     </style>
 </head>
 <body>
+    <div id="preloader"><i class="fa-solid fa-cube"></i></div>
+
     <div class="glow glow-purple"></div>
     <div class="glow glow-blue"></div>
     <div class="glow glow-red"></div>
@@ -219,8 +211,16 @@
                     <h1 class="section-title">The Classic Blocky Experience, Reimagined.</h1>
                     <p class="section-subtitle">BlockyCraft is a fan-made remake of Blockman GO, bringing back the classic gameplay with modern enhancements, custom content, and a thriving community.</p>
                     <div class="button-group">
-                        <a class="btn btn-download" data-page="download"><span class="btn-text">Download Now</span></a>
-                        <a class="btn btn-discord" data-page="discord"><span class="btn-text">Join Discord</span></a>
+                        <a class="btn btn-download" data-page="download">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span class="btn-text" data-i18n="download_btn">Download Now</span>
+                          </a>
+                          
+                          <a class="btn btn-discord" data-page="discord">
+                            <i class="fa-brands fa-discord"></i>
+                            <span class="btn-text" data-i18n="discord_btn">Join Discord</span>
+                          </a>
+                          
                     </div>
                 </div>
             </section>
@@ -257,10 +257,10 @@
             <section class="section">
                 <div class="page-content">
                     <h2 class="section-title fade-in-up">Ready to Play?</h2>
-                    <p class="section-subtitle fade-in-up">Jump back into the action. Download for Android or join our community on Discord to get started.</p>
+                    <p class="section-subtitle fade-in-up">Jump back into the action. Find the download in our Discord server to get started.</p>
                     <div class="button-group fade-in-up">
-                        <a class="btn btn-download" data-page="download"><span class="btn-text"><i class="fa-solid fa-download"></i>   Download Page</span></a>
-                        <a class="btn btn-discord" data-page="discord"><span class="btn-text"><i class="fa-brands fa-discord"></i>   Community Hub</span></a>
+                        <a class="btn btn-discord" data-page="discord"><span class="btn-text"><i class="fa-brands fa-discord"></i> Join Our Community</span></a>
+                        <a class="btn btn-download" data-page="download"><span class="btn-text"><i class="fa-solid fa-download"></i> Download BlockyCraft</span></a>
                     </div>
                 </div>
             </section>
@@ -270,25 +270,13 @@
         <div id="download" class="page">
              <div class="page-content">
                 <h2 class="section-title fade-in-up">Download BlockyCraft</h2>
-                <p class="section-subtitle fade-in-up">Choose your platform to get started. The Android version is currently available, with more platforms to come.</p>
+                <p class="section-subtitle fade-in-up">The game is available for Android. To download, join our Discord community where you'll find the official link.</p>
                 <div class="content-grid">
-                    <div class="content-card fade-in-up">
-                        <i class="fa-brands fa-windows feature-icon" style="color: #00a4ef;" aria-hidden="true"></i>
-                        <h3>Windows</h3>
-                        <p>Not currently available for desktop.</p>
-                        <span class="btn disabled"><span class="btn-text">Unavailable</span></span>
-                    </div>
                     <div class="content-card fade-in-up" style="transition-delay: 100ms;">
                         <i class="fa-brands fa-android feature-icon" style="color: #a4c639;" aria-hidden="true"></i>
                         <h3><span>Android</span> <span class="version-badge app-version"></span></h3>
-                        <p>Size: 86mb. Get the latest stable version.</p>
-                        <a href="getapp.html" class="btn btn-download"><span class="btn-text">Download APK</span></a>
-                    </div>
-                    <div class="content-card fade-in-up" style="transition-delay: 200ms;">
-                        <i class="fa-brands fa-apple feature-icon" style="color: #c7c7c7;" aria-hidden="true"></i>
-                        <h3>macOS / iOS</h3>
-                        <p>Not currently available for Apple devices.</p>
-                        <span class="btn disabled"><span class="btn-text">Unavailable</span></span>
+                        <p>Get the latest stable version and support directly from our community server.</p>
+                        <a href="getapp.html" class="btn btn-download"><span class="btn-text">Get from Discord</span></a>
                     </div>
                 </div>
             </div>
@@ -298,6 +286,7 @@
         <div id="discord" class="page">
              <div class="page-content">
                 <h2 class="section-title fade-in-up">Join Our Discord Community</h2>
+                <p class="section-subtitle fade-in-up">The download link for BlockyCraft <span class="app-version"></span> is waiting for you in our official Discord server. Join now to get access!</p>
                  <div class="discord-grid fade-in-up">
                     <div class="discord-preview">
                         <img src="discord_server_look.png" alt="BlockyCraft Discord Server Preview">
@@ -306,9 +295,9 @@
                         <h3>The Heart of BlockyCraft</h3>
                         <p>Our Discord server is the central hub for everything. Get support, find friends, and be the first to know about new updates.</p>
                         <ul class="discord-features">
+                            <li><i class="fa-solid fa-check" aria-hidden="true"></i> Get the official download link</li>
                             <li><i class="fa-solid fa-check" aria-hidden="true"></i> Exclusive updates & announcements</li>
                             <li><i class="fa-solid fa-check" aria-hidden="true"></i> Find teammates for multiplayer</li>
-                            <li><i class="fa-solid fa-check" aria-hidden="true"></i> Share screenshots & clips</li>
                             <li><i class="fa-solid fa-check" aria-hidden="true"></i> Participate in community events</li>
                         </ul>
                         <a href="https://discord.gg/G5BBSpD4Pd" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
@@ -375,13 +364,23 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const APP_VERSION = "1.20";
+            // --- App Version - UPDATE THIS VALUE ---
+            const APP_VERSION = "1.2.0";
+
+            // --- Preloader ---
+            window.onload = function() {
+                document.body.classList.add('loaded');
+            };
+
+            // --- Lenis Smooth Scrolling ---
             const lenis = new Lenis();
             function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
             requestAnimationFrame(raf);
 
+            // --- Set App Version ---
             document.querySelectorAll('.app-version').forEach(el => { el.textContent = `v${APP_VERSION}`; });
             
+            // --- Magnetic Button Glow Effect ---
             const buttons = document.querySelectorAll('.btn');
             buttons.forEach(btn => {
                 const glow = document.createElement('span');
