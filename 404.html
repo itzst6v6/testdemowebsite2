@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found - BlockyCraft</title>
+    <meta name="description" content="Oops! The page you were looking for could not be found.">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-red: #ef4444;
+            --accent-blue: #4a7dce;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+
+            --glow-purple: rgba(158, 83, 237, 0.15);
+            --glow-blue: rgba(69, 137, 240, 0.2);
+            --glow-red: rgba(228, 77, 92, 0.25);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow: hidden;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .glow { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; }
+        .glow-purple { width: 400px; height: 400px; background: var(--glow-purple); top: 5%; left: 10%; }
+        .glow-blue { width: 350px; height: 350px; background: var(--glow-blue); top: 15%; right: 15%; }
+        .glow-red { width: 300px; height: 300px; background: var(--glow-red); bottom: 30%; left: 50%; transform: translateX(-50%); }
+
+        .container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: fadeIn 0.8s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .icon {
+            font-size: 3rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(4rem, 15vw, 6rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            color: var(--accent-red);
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        p { color: var(--text-muted); line-height: 1.6; margin-bottom: 2.5rem; max-width: 40ch; margin-left: auto; margin-right: auto; }
+        .btn { position: relative; overflow: hidden; display: inline-block; padding: 0.9rem 2.2rem; border-radius: 50px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.3s ease; }
+        .btn-text { position: relative; z-index: 2; color: var(--text-color); font-weight: 500; }
+        .btn-glow { position: absolute; width: 100px; height: 100px; background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%); border-radius: 50%; top: 0; left: 0; transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+        .btn:hover { transform: translateY(-3px); }
+        .btn:hover .btn-glow { opacity: 1; }
+        .btn-return { background: linear-gradient(45deg, #436eb1, #568ad6); }
+        
+    </style>
+</head>
+<body>
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="glow glow-red"></div>
+
+    <div class="container">
+        <i class="fa-solid fa-ghost icon"></i>
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
+        <p>Oops! The page you were looking for doesn't exist. It might have been moved or deleted.</p>
+        <a href="index.html" class="btn btn-return"><span class="btn-text">Return to Homepage</span></a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                const glow = document.createElement('span');
+                glow.className = 'btn-glow';
+                btn.appendChild(glow);
+
+                btn.addEventListener('mousemove', e => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    glow.style.left = `${x}px`;
+                    glow.style.top = `${y}px`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
