@@ -19,7 +19,7 @@
             --bg-color: #000000;
             --text-color: #ffffff;
             --text-muted: #a0a0a0;
-            --accent-red: #e44d5c;
+            --accent-red: #ef4444;
             --accent-blue: #4a7dce;
             --card-bg: rgba(255, 255, 255, 0.05);
             --card-border: rgba(255, 255, 255, 0.1);
@@ -41,6 +41,11 @@
             padding: 2rem;
             overflow-x: hidden;
             position: relative;
+            /* Disable text selection */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .glow { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; }
@@ -74,12 +79,7 @@
 
         p { color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; max-width: 40ch; margin-left: auto; margin-right: auto; }
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; width: 100%; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem; color: var(--text-color); border: none; cursor: pointer; transition: all 0.3s ease; }
-        
-        .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 25px rgba(255, 255, 255, 0.2);
-        }
-
+        .btn:hover { transform: translateY(-3px) scale(1.02); }
         .btn-discord { background: linear-gradient(45deg, #436eb1, #568ad6); }
         .btn-download { background: linear-gradient(45deg, #d44452, #e46571); }
         .btn:disabled { background: #555; cursor: not-allowed; opacity: 0.7; box-shadow: none; transform: none; }
@@ -134,13 +134,18 @@
     </div>
 
     <script>
+        // --- App Version - UPDATE THIS VALUE ---
         const APP_VERSION = "1.2.0";
+
         document.addEventListener('DOMContentLoaded', () => {
             const joinButton = document.getElementById('join-discord-btn');
             const downloadSection = document.getElementById('download-section');
+
+            // --- Set App Version ---
             document.querySelectorAll('.app-version').forEach(el => {
                 el.textContent = `v${APP_VERSION}`;
             });
+
             joinButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.open(joinButton.href, '_blank');
