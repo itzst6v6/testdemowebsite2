@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download BlockyCraft - Join our Discord</title>
+    <meta name="description" content="One last step! Join the official BlockyCraft Discord server to download the game.">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-red: #e44d5c;
+            --accent-blue: #4a7dce;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --glow-purple: rgba(158, 83, 237, 0.15);
+            --glow-blue: rgba(69, 137, 240, 0.2);
+            --glow-red: rgba(228, 77, 92, 0.25);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .glow { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; }
+        .glow-purple { width: 400px; height: 400px; background: var(--glow-purple); top: 5%; left: 10%; }
+        .glow-blue { width: 350px; height: 350px; background: var(--glow-blue); top: 15%; right: 15%; }
+        .glow-red { width: 300px; height: 300px; background: var(--glow-red); bottom: 30%; left: 50%; transform: translateX(-50%); }
+
+        .gate-container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        p { color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; max-width: 40ch; margin-left: auto; margin-right: auto; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; width: 100%; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem; color: var(--text-color); border: none; cursor: pointer; transition: all 0.3s ease; }
+        
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-discord { background: linear-gradient(45deg, #436eb1, #568ad6); }
+        .btn-download { background: linear-gradient(45deg, #d44452, #e46571); }
+        .btn:disabled { background: #555; cursor: not-allowed; opacity: 0.7; box-shadow: none; transform: none; }
+        
+        .version-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+
+        #download-section { margin-top: 2rem; visibility: hidden; opacity: 0; height: 0; transform: translateY(20px); transition: all 0.5s ease-out; }
+        #download-section.unlocked { visibility: visible; opacity: 1; height: auto; transform: translateY(0); }
+        #download-section p { margin-bottom: 1rem; font-weight: 500; }
+        
+        .back-link { display: block; margin-top: 2.5rem; color: var(--text-muted); font-size: 0.9rem; text-decoration: none; transition: color 0.3s ease; }
+        .back-link:hover { color: var(--text-color); }
+
+    </style>
+</head>
+<body>
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="glow glow-red"></div>
+
+    <div class="gate-container">
+        <h1>
+            <span>One Last Step!</span>
+            <span class="version-badge app-version"></span>
+        </h1>
+        <p>The game download is exclusively for community members. Join our Discord to unlock and download the latest version.</p>
+        
+        <a href="https://discord.gg/G5BBSpD4Pd" id="join-discord-btn" class="btn btn-discord">
+            <i class="fa-brands fa-discord"></i>
+            <span>Join Discord & Continue</span>
+        </a>
+
+        <div id="download-section">
+            <p>Thanks for joining! Your download is ready.</p>
+            <a href="/path/to/your/blockycraft.apk" class="btn btn-download" download>
+                <i class="fa-solid fa-download"></i>
+                Download BlockyCraft.apk
+            </a>
+        </div>
+        
+        <a href="index.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Homepage
+        </a>
+    </div>
+
+    <script>
+        const APP_VERSION = "1.2.0";
+        document.addEventListener('DOMContentLoaded', () => {
+            const joinButton = document.getElementById('join-discord-btn');
+            const downloadSection = document.getElementById('download-section');
+            document.querySelectorAll('.app-version').forEach(el => {
+                el.textContent = `v${APP_VERSION}`;
+            });
+            joinButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open(joinButton.href, '_blank');
+                downloadSection.classList.add('unlocked');
+                joinButton.innerHTML = `<i class="fa-solid fa-check"></i> <span>Community Joined!</span>`;
+                joinButton.style.cursor = 'default';
+                joinButton.style.pointerEvents = 'none';
+                joinButton.style.opacity = '0.7';
+            });
+        });
+    </script>
+</body>
+</html>
