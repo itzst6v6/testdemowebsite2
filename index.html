@@ -9,12 +9,12 @@
     <meta name="description" content="BlockyCraft is a fan-made remake of Blockman GO by ZNFDev, Comical, and Rosario. Explore custom games, skins, and a vibrant community.">
 	<meta property="og:title" content="BlockyCraft">
 	<meta property="og:description" content="A fan-made remake of Blockman GO with custom games, skins, and more.">
-	<meta property="og:image" content="https://blockycraft.xyz/static/img/banner.png">
+	<meta property="og:image" content="banner.png">
 	<meta property="og:url" content="https://blockycraft.xyz/">
 	<meta property="og:type" content="website">
 
     <!-- Favicon -->
-    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="icon" href="banner.png" type="image/png">
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,7 +59,12 @@
             user-select: none;
             -webkit-user-select: none;
         }
-        img { pointer-events: none; }
+        img { 
+            pointer-events: none;
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
 
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease-in-out; }
         #preloader i { font-size: 3rem; color: var(--accent-red); animation: spin 1.5s linear infinite; }
@@ -78,7 +83,9 @@
 
         .site-header { position: fixed; top: 2rem; left: 50%; transform: translateX(-50%); width: calc(100% - 4rem); max-width: 900px; z-index: 1000; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; background-color: rgba(26, 26, 26, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 50px; padding: 0.5rem; border: 1px solid var(--card-border); }
-        .logo { font-size: 1.25rem; font-weight: 800; color: var(--text-color); text-decoration: none; cursor: pointer; padding: 0.5rem 1.5rem; }
+        .logo { display: flex; align-items: center; text-decoration: none; cursor: pointer; padding: 0.5rem 1rem; }
+        .logo-image { height: 28px; width: auto; }
+
         .desktop-nav-links { position: relative; display: flex; list-style: none; }
         .nav-link { position: relative; z-index: 2; display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 1rem; transition: color 0.4s ease; cursor: pointer; border-radius: 50px; }
         .nav-link i, .nav-link-text { transition: color 0.4s ease; }
@@ -116,12 +123,57 @@
 
         .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
         .dev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .content-card { background-color: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--card-border); border-radius: 20px; padding: 2rem; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; }
+        .content-card { position: relative; background-color: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--card-border); border-radius: 20px; padding: 2rem; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; }
         .content-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         .content-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
         .content-card p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6; }
         .feature-icon { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--accent-red); }
+        .dev-pfp { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 0 auto 1.5rem auto; border: 2px solid var(--card-border); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .dev-role { font-size: 0.9rem; color: var(--text-muted); margin-top: -0.25rem; }
         .version-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 50px; background-color: rgba(255, 255, 255, 0.1); font-size: 0.8rem; font-weight: 700; vertical-align: middle; }
+
+        /* BADGE AND TOOLTIP STYLES */
+        .pfp-container { position: relative; width: 80px; margin: 0 auto 1.5rem auto; }
+        .reveal-badge { position: absolute; top: 0; right: -10px; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(45deg, #f9cb28, #f2a60c); border: 2px solid white; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .reveal-badge .badge-text { display: none; padding: 0 1rem; font-weight: 700; white-space: nowrap; }
+        .reveal-badge.is-revealed { width: auto; height: auto; border-radius: 50px; top: -10px; right: 50%; transform: translateX(50%); padding: 0.4rem 0; cursor: default; }
+        .reveal-badge.is-revealed .fa-star { display: none; }
+        .reveal-badge.is-revealed .badge-text { display: block; }
+        .reveal-badge:disabled { pointer-events: none; }
+        
+        /* NEW TOOLTIP STYLES */
+        .badge-tooltip {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--panel-bg);
+            color: var(--text-color);
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .badge-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--panel-bg) transparent transparent transparent;
+        }
+        .reveal-badge:hover .badge-tooltip {
+            opacity: 1;
+        }
+        .reveal-badge.is-revealed .badge-tooltip {
+            display: none;
+        }
 
         .discord-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; text-align: left; }
         .discord-features { list-style: none; margin: 1.5rem 0; }
@@ -144,7 +196,7 @@
             .site-header { top: 1rem; width: calc(100% - 2rem); }
             main { padding: 6rem 0 2rem 0; }
             .nav-container { padding: 0.5rem; }
-            .logo { padding: 0.5rem 1rem; }
+            .logo-image { height: 24px; }
             .desktop-nav-links { display: none; }
             .mobile-nav-drawer { display: flex; position: fixed; top: 0; right: 0; transform: translateX(100%); height: 100vh; width: 75%; max-width: 280px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 1.5rem; padding: 2rem; background-color: var(--panel-bg); box-shadow: -10px 0 30px rgba(0,0,0,0.2); transition: transform 0.4s cubic-bezier(0.2, 0.5, 0, 1); border-radius: 30px 0 0 30px; z-index: 1002; list-style: none; }
             .mobile-nav-drawer.is-active { transform: translateX(0); }
@@ -171,14 +223,15 @@
 </head>
 <body>
     <div id="preloader"><i class="fa-solid fa-cube"></i></div>
-
     <div class="glow glow-purple"></div>
     <div class="glow glow-blue"></div>
     <div class="glow glow-red"></div>
 
     <header class="site-header">
         <nav class="nav-container">
-            <a class="logo" data-page="home">BlockyCraft</a>
+            <a class="logo" data-page="home">
+                <img src="banner.png" alt="BlockyCraft Logo" class="logo-image">
+            </a>
             <ul class="desktop-nav-links">
                 <span class="nav-indicator"></span>
                 <li><a class="nav-link" data-page="home"><i class="fa-solid fa-house"></i><span class="nav-link-text">Home</span></a></li>
@@ -209,7 +262,7 @@
                     <h1 class="section-title">The Classic Blocky Experience, Reimagined.</h1>
                     <p class="section-subtitle">BlockyCraft is a fan-made remake of Blockman GO, bringing back the classic gameplay with modern enhancements, custom content, and a thriving community.</p>
                     <div class="button-group">
-                        <a class="btn btn-download" data-page="download"><span class="btn-text">Download Now</span></a>
+                        <a class="btn btn-download" data-page="download"><span class="btn-text"><i class="fa-solid fa-arrow-right"></i> Download Now</span></a>
                         <a class="btn btn-discord" data-page="discord"><span class="btn-text">Join Discord</span></a>
                     </div>
                 </div>
@@ -247,10 +300,9 @@
             <section class="section">
                 <div class="page-content">
                     <h2 class="section-title fade-in-up">Ready to Play?</h2>
-                    <p class="section-subtitle fade-in-up">Jump back into the action. Download for Android or join our community on Discord to get started.</p>
+                    <p class="section-subtitle fade-in-up">Jump back into the action. Find the download in our Discord server to get started.</p>
                     <div class="button-group fade-in-up">
-                        <a class="btn btn-download" data-page="download"><span class="btn-text"><i class="fa-solid fa-download"></i>   Download Page</span></a>
-                        <a class="btn btn-discord" data-page="discord"><span class="btn-text"><i class="fa-brands fa-discord"></i>   Community Hub</span></a>
+                        <a class="btn btn-discord" data-page="discord"><span class="btn-text"><i class="fa-brands fa-discord"></i>   Join Our Community</span></a>
                     </div>
                 </div>
             </section>
@@ -279,7 +331,6 @@
                 <p class="section-subtitle fade-in-up">The download link for BlockyCraft <span class="app-version"></span> is waiting for you in our official Discord server. Join now to get access!</p>
                  <div class="discord-grid fade-in-up">
                     <div class="discord-preview">
-                        <!-- LIVE WIDGET HAS BEEN RE-ADDED -->
                         <iframe
                             src="https://discord.com/widget?id=1115009916663513108&theme=dark"
                             class="discord-widget"
@@ -330,19 +381,45 @@
                     <p class="section-subtitle fade-in-up">Meet the developers and contributors who make this project possible.</p>
                     <div class="dev-grid">
                         <div class="content-card fade-in-up">
-                            <i class="fa-solid fa-user-astronaut feature-icon"></i> <h3>Znfdev</h3>
+                            <img src="https://cdn.discordapp.com/avatars/935097172360327188/c081fff41e227cf9e7ddc544b9216d4c.png?size=256" alt="Znfdev profile picture" class="dev-pfp">
+                            <h3>Znfdev</h3>
                         </div>
                         <div class="content-card fade-in-up" style="transition-delay: 100ms;">
-                            <i class="fa-solid fa-user-astronaut feature-icon"></i> <h3>Comical</h3>
+                             <img src="https://cdn.discordapp.com/avatars/1324359704180162592/a315d686956677829ac953486a7de0f6.png?size=256" alt="Comical profile picture" class="dev-pfp">
+                            <h3>Comical</h3>
                         </div>
                         <div class="content-card fade-in-up" style="transition-delay: 200ms;">
-                            <i class="fa-solid fa-user-astronaut feature-icon"></i> <h3>Rosario</h3>
+                            <img src="https://cdn.discordapp.com/avatars/1057316427457122304/bb42ca4a90518c54f9317efefbfc6fe8.png?size=256" alt="Rosario profile picture" class="dev-pfp">
+                            <h3>Rosario</h3>
                         </div>
                         <div class="content-card fade-in-up" style="transition-delay: 300ms;">
-                            <i class="fa-solid fa-user-astronaut feature-icon"></i> <h3>Eternal</h3>
+                            <img src="https://cdn.discordapp.com/avatars/971473213144072203/93e2c1b9edf19be9b821da1be2a8d45b.png?size=4096" alt="Eternal profile picture" class="dev-pfp">
+                            <h3>Eternal</h3>
                         </div>
                          <div class="content-card fade-in-up" style="transition-delay: 400ms;">
                             <i class="fa-solid fa-user-tie feature-icon" style="color: var(--accent-blue)"></i> <h3>And Others...</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Designers Section -->
+            <section class="section">
+                <div class="page-content">
+                    <h2 class="section-title fade-in-up">Designers</h2>
+                    <p class="section-subtitle fade-in-up">The creative minds behind the look and feel of the project.</p>
+                    <div class="dev-grid">
+                        <div class="content-card fade-in-up">
+                            <div class="pfp-container">
+                                <img src="https://cdn.discordapp.com/avatars/1282081390812463117/8cf7d7cb25fb63278946be9709084fc1.png?size=1024" alt="Stevexinpa profile picture" class="dev-pfp">
+                                <button class="reveal-badge" aria-label="Reveal achievement">
+                                    <span class="badge-tooltip">Click Me!</span>
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="badge-text">First Designer of BlockyCraft!</span>
+                                </button>
+                            </div>
+                            <h3>Stevexinpa</h3>
+                            <p class="dev-role">UI Designer</p>
                         </div>
                     </div>
                 </div>
@@ -356,8 +433,8 @@
         <p>This is a fan-made project and is not affiliated with, endorsed, or sponsored by GVERSE INTERNATIONAL PTE. LTD. or Zhuhai Sandbox Network Technology Co. Ltd.</p>
     </footer>
     
-    <!-- Lenis CDN for smooth scrolling -->
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -383,6 +460,23 @@
                     glow.style.top = `${y}px`;
                 });
             });
+
+            const badge = document.querySelector('.reveal-badge');
+            if (badge) {
+                badge.addEventListener('click', () => {
+                    if (badge.classList.contains('is-revealed')) return;
+
+                    badge.classList.add('is-revealed');
+                    badge.disabled = true;
+
+                    const rect = badge.getBoundingClientRect();
+                    const origin = {
+                        x: (rect.left + rect.right) / 2 / window.innerWidth,
+                        y: (rect.top + rect.bottom) / 2 / window.innerHeight
+                    };
+                    confetti({ particleCount: 100, spread: 70, origin: origin });
+                });
+            }
 
             const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
             const mobileNavDrawer = document.querySelector('.mobile-nav-drawer');
