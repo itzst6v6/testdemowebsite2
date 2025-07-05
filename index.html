@@ -127,8 +127,8 @@
         .discord-features { list-style: none; margin: 1.5rem 0; }
         .discord-features li { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
         .discord-features .fa-check { color: var(--accent-blue); }
-        .discord-preview img { border-radius: 16px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-
+        .discord-widget { width: 100%; height: 500px; border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
         .site-footer { width: 100%; max-width: 900px; padding: 2rem 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--card-border); margin-top: auto; }
         .site-footer p { margin: 0.25rem 0; }
 
@@ -179,7 +179,6 @@
     <header class="site-header">
         <nav class="nav-container">
             <a class="logo" data-page="home">BlockyCraft</a>
-            <!-- Desktop Nav -->
             <ul class="desktop-nav-links">
                 <span class="nav-indicator"></span>
                 <li><a class="nav-link" data-page="home"><i class="fa-solid fa-house"></i><span class="nav-link-text">Home</span></a></li>
@@ -193,7 +192,6 @@
         </nav>
     </header>
 
-    <!-- Mobile Nav Drawer & Overlay -->
     <div class="mobile-nav-overlay"></div>
     <ul class="mobile-nav-drawer">
         <button class="mobile-nav-close-btn" aria-label="Close navigation menu"><i class="fa-solid fa-xmark"></i></button>
@@ -211,16 +209,8 @@
                     <h1 class="section-title">The Classic Blocky Experience, Reimagined.</h1>
                     <p class="section-subtitle">BlockyCraft is a fan-made remake of Blockman GO, bringing back the classic gameplay with modern enhancements, custom content, and a thriving community.</p>
                     <div class="button-group">
-                        <a class="btn btn-download" data-page="download">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            <span class="btn-text" data-i18n="download_btn">Download Now</span>
-                          </a>
-                          
-                          <a class="btn btn-discord" data-page="discord">
-                            <i class="fa-brands fa-discord"></i>
-                            <span class="btn-text" data-i18n="discord_btn">Join Discord</span>
-                          </a>
-                          
+                        <a class="btn btn-download" data-page="download"><span class="btn-text">Download Now</span></a>
+                        <a class="btn btn-discord" data-page="discord"><span class="btn-text">Join Discord</span></a>
                     </div>
                 </div>
             </section>
@@ -257,10 +247,10 @@
             <section class="section">
                 <div class="page-content">
                     <h2 class="section-title fade-in-up">Ready to Play?</h2>
-                    <p class="section-subtitle fade-in-up">Jump back into the action. Find the download in our Discord server to get started.</p>
+                    <p class="section-subtitle fade-in-up">Jump back into the action. Download for Android or join our community on Discord to get started.</p>
                     <div class="button-group fade-in-up">
-                        <a class="btn btn-discord" data-page="discord"><span class="btn-text"><i class="fa-brands fa-discord"></i> Join Our Community</span></a>
-                        <a class="btn btn-download" data-page="download"><span class="btn-text"><i class="fa-solid fa-download"></i> Download BlockyCraft</span></a>
+                        <a class="btn btn-download" data-page="download"><span class="btn-text"><i class="fa-solid fa-download"></i>   Download Page</span></a>
+                        <a class="btn btn-discord" data-page="discord"><span class="btn-text"><i class="fa-brands fa-discord"></i>   Community Hub</span></a>
                     </div>
                 </div>
             </section>
@@ -289,7 +279,14 @@
                 <p class="section-subtitle fade-in-up">The download link for BlockyCraft <span class="app-version"></span> is waiting for you in our official Discord server. Join now to get access!</p>
                  <div class="discord-grid fade-in-up">
                     <div class="discord-preview">
-                        <img src="discord_server_look.png" alt="BlockyCraft Discord Server Preview">
+                        <!-- LIVE WIDGET HAS BEEN RE-ADDED -->
+                        <iframe
+                            src="https://discord.com/widget?id=1115009916663513108&theme=dark"
+                            class="discord-widget"
+                            allowtransparency="true"
+                            frameborder="0"
+                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+                        </iframe>
                     </div>
                     <div class="discord-info">
                         <h3>The Heart of BlockyCraft</h3>
@@ -364,23 +361,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- App Version - UPDATE THIS VALUE ---
             const APP_VERSION = "1.2.0";
-
-            // --- Preloader ---
-            window.onload = function() {
-                document.body.classList.add('loaded');
-            };
-
-            // --- Lenis Smooth Scrolling ---
             const lenis = new Lenis();
             function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
             requestAnimationFrame(raf);
 
-            // --- Set App Version ---
+            window.onload = function() { document.body.classList.add('loaded'); };
+
             document.querySelectorAll('.app-version').forEach(el => { el.textContent = `v${APP_VERSION}`; });
             
-            // --- Magnetic Button Glow Effect ---
             const buttons = document.querySelectorAll('.btn');
             buttons.forEach(btn => {
                 const glow = document.createElement('span');
@@ -395,7 +384,6 @@
                 });
             });
 
-            // --- Mobile Navigation ---
             const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
             const mobileNavDrawer = document.querySelector('.mobile-nav-drawer');
             const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
@@ -407,7 +395,6 @@
             mobileNavCloseBtn.addEventListener('click', closeMobileNav);
             mobileNavOverlay.addEventListener('click', closeMobileNav);
             
-            // --- Page Navigation & Navbar Indicator ---
             const pageNavElements = document.querySelectorAll('.nav-link, .logo, .btn[data-page]');
             const allNavLinks = document.querySelectorAll('.nav-link');
             const pages = document.querySelectorAll('.page');
@@ -453,7 +440,6 @@
             });
             showPage('home');
             
-            // --- Scroll Animations ---
             const animatedElements = document.querySelectorAll('.fade-in-up');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -462,7 +448,6 @@
             }, { threshold: 0.1 });
             animatedElements.forEach(el => observer.observe(el));
 
-            // --- Parallax Glows ---
             const glows = document.querySelectorAll('.glow');
             window.addEventListener('scroll', () => {
                 const scrollY = window.scrollY;
