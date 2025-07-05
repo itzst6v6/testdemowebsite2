@@ -132,48 +132,19 @@
         .dev-role { font-size: 0.9rem; color: var(--text-muted); margin-top: -0.25rem; }
         .version-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 50px; background-color: rgba(255, 255, 255, 0.1); font-size: 0.8rem; font-weight: 700; vertical-align: middle; }
 
-        /* BADGE AND TOOLTIP STYLES */
         .pfp-container { position: relative; width: 80px; margin: 0 auto 1.5rem auto; }
         .reveal-badge { position: absolute; top: 0; right: -10px; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(45deg, #f9cb28, #f2a60c); border: 2px solid white; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .reveal-badge:hover { transform: scale(1.1); }
         .reveal-badge .badge-text { display: none; padding: 0 1rem; font-weight: 700; white-space: nowrap; }
         .reveal-badge.is-revealed { width: auto; height: auto; border-radius: 50px; top: -10px; right: 50%; transform: translateX(50%); padding: 0.4rem 0; cursor: default; }
         .reveal-badge.is-revealed .fa-star { display: none; }
         .reveal-badge.is-revealed .badge-text { display: block; }
         .reveal-badge:disabled { pointer-events: none; }
         
-        /* NEW TOOLTIP STYLES */
-        .badge-tooltip {
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--panel-bg);
-            color: var(--text-color);
-            padding: 0.3rem 0.6rem;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .badge-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 5px;
-            border-style: solid;
-            border-color: var(--panel-bg) transparent transparent transparent;
-        }
-        .reveal-badge:hover .badge-tooltip {
-            opacity: 1;
-        }
-        .reveal-badge.is-revealed .badge-tooltip {
-            display: none;
-        }
+        .badge-tooltip { position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background-color: var(--panel-bg); color: var(--text-color); padding: 0.3rem 0.6rem; border-radius: 5px; font-size: 0.8rem; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .badge-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-width: 5px; border-style: solid; border-color: var(--panel-bg) transparent transparent transparent; }
+        .reveal-badge:hover .badge-tooltip { opacity: 1; }
+        .reveal-badge.is-revealed .badge-tooltip { display: none; }
 
         .discord-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; text-align: left; }
         .discord-features { list-style: none; margin: 1.5rem 0; }
@@ -403,7 +374,6 @@
                 </div>
             </section>
 
-            <!-- Designers Section -->
             <section class="section">
                 <div class="page-content">
                     <h2 class="section-title fade-in-up">Designers</h2>
@@ -419,7 +389,8 @@
                                 </button>
                             </div>
                             <h3>Stevexinpa</h3>
-                            <p class="dev-role">UI Designer</p>
+                            <!-- UPDATED ROLE -->
+                            <p class="dev-role">UI Designer & Web Developer</p>
                         </div>
                     </div>
                 </div>
@@ -429,6 +400,8 @@
     </main>
 
     <footer class="site-footer">
+        <!-- UPDATED FOOTER -->
+        <p>Website made by Stevexinpa.</p>
         <p>Copyright © 2025 BlockyCraft. Made by X Devels.</p>
         <p>This is a fan-made project and is not affiliated with, endorsed, or sponsored by GVERSE INTERNATIONAL PTE. LTD. or Zhuhai Sandbox Network Technology Co. Ltd.</p>
     </footer>
